@@ -11238,6 +11238,7 @@ header.masthead .site-heading .h1 {
   margin-top: 0;
   color: #6c757d;
 }
+
 .post-preview > .post-meta > a {
   text-decoration: none;
 }
@@ -11245,4 +11246,16 @@ header.masthead .site-heading .h1 {
   .post-preview > a > .post-title {
     font-size: 2.25rem;
   }
+}
+.post-preview > .post-meta-j {
+  font-size: 1.125rem;
+  font-style: italic;
+  margin-bottom: 0;
+  color: #6c757d;
+}
+
+.post-preview > a > .post-title-j {
+  font-size: 1.875rem;
+  margin-bottom: 1.875rem;
+  margin-top: 0.625rem;
 }
