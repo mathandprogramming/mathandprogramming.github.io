@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script> 
+        $(function(){
+            $("head").load("../header_post.html");
+            $("nav").load("../nav_post.html");
+            $("footer").load("../footer_post.html");
+        });
+    </script>
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+
+    </nav>
+    <!-- Page Header-->
+    <header class="masthead-j" style="background-image: url('assets/img/post-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>Common Encoding Methods</h1>
+                        <!-- <h2 class="subheading">Problems look mighty small from 150 miles up</h2> -->
+                        <span class="meta">
+                            Posted on October 13, 2019
+                            <!-- <a href="#!">Start Bootstrap</a> -->
+                            <!-- on August 24, 2022 -->
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Post Content-->
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- <h1>Common Encoding Methods</h1> -->
+                    <p>Before going over the encoding methods, why do we need encoding?
+                        Common reasons are:</p>
+                    <ul>
+                        <li>
+                            <p>Most machine leaning algortihm only takes numerical inputs but categorical inputs can be
+                                some type of
+                                string such as {male, female}.</p>
+                        </li>
+
+                        <li>
+                            <p>Even if categorical feature have numeric data, they do not have numerical property like
+                                numerical data.
+                                For example, the zip code of Chelsea, NYC is 10001 and the zip code of Lower East Side,
+                                NYC is 10002.
+                                However, the sum of two zip codes, 10001 + 10002 = 20003, doesn&rsquo;t mean anything.
+                            </p>
+                        </li>
+                    </ul>
+
+                    <p>There are many different encoding methods when it comes to categorical data for a supervised
+                        machine learning
+                        algorithm. Here, I organize some of most common methods.
+                        Most common encoding methods:</p>
+
+                    <ul>
+                        <li><a
+                                href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html">Label
+                                encoding</a>: this method changes every categorical value to a number.</li>
+                        <li><a
+                                href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html">One-hot
+                                encoding</a>: this method takes each category value and turns it into a binary vetor
+                            whose length is the
+                            number of distinct values in category and all elements in the binary vector are zero except
+                            one element that
+                            specifies the category.</li>
+                        <li><a
+                                href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.FeatureHasher.html">Feature
+                                hashing</a>: this method also vectorizes each category value (like one hot encoding). It
+                            works by
+                            applying a hash function to the features and using their hash values as indices directly.
+                        </li>
+                        <li><a href="https://contrib.scikit-learn.org/categorical-encoding/targetencoder.html">Mean
+                                target encoding</a>:
+                            This method encodes categorical value with the mean of the target variable.</li>
+                    </ul>
+
+                    <p>When to use each encoding method:</p>
+
+                    <ul>
+                        <li>Label encoding: this simple encoding can be used when the purpose of encoding is only to
+                            change non-numeric
+                            categorical data to numerical data.</li>
+                        <li>One-hot encoding: this can be used if the feature is nominal data which means there are no
+                            order among them.
+                        </li>
+                        <li>Feature hashing: this can be used in the same case as in One-hot encoding and the number of
+                            distinct
+                            categories in the feature is large.</li>
+                        <li>Mean target encoding: this cen be used if we want to bring out the relation between similar
+                            categories and
+                            the target itself.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+    <!-- Footer-->
+    <footer class="border-top">
+
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../../scripts/scripts.js"></script>
+</body>
+
+</html>

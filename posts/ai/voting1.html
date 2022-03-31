@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script> 
+        $(function(){
+            $("head").load("../header_post.html");
+            $("nav").load("../nav_post.html");
+            $("footer").load("../footer_post.html");
+        });
+    </script>
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+
+    </nav>
+    <!-- Page Header-->
+    <header class="masthead-j" style="background-image: url('assets/img/post-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>Voting method - Ensemble 1</h1>
+                        <!-- <h2 class="subheading">Problems look mighty small from 150 miles up</h2> -->
+                        <span class="meta">
+                            Posted on October 18, 2019
+                            <!-- <a href="#!">Start Bootstrap</a> -->
+                            <!-- on August 24, 2022 -->
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Post Content-->
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>This is the first post of the series of emsemble method.</p>
+
+                    <h2 id="ensemble-learning">Ensemble Learning</h2>
+                    
+                    <p>The idea of ensemble learning is to build a prediction model by combining the strenths of a collection of simpler base models. A collection of base models is called an ensemble, and ensemble learning algorithm is called an ensemble method.</p>
+                    
+                    <p>Most common ensemble methods are voting, bagging, boosting, and stacking. In this post, I will go over the voting method for classification task.</p>
+                    
+                    <h3 id="voting">Voting</h3>
+                    
+                    <p>This is the most simple ensemble method. The basic idea is that we predict the class that gets the most votes of base predictors, which is called a hard voting, after training diverse classifiers.</p>
+                    
+                    <p>If each base model can estimate probabiliy, we can predict the class with the highest class probability, averaged over all the individual base models. This is called a soft voting and it often produces a better result than a hard voting.
+                    Symbolically, suppose $f_{i}$ represents a predictor $i = 1, ..., n$ and each predictor is different from each other. Then the hard voting classifer, $f$, classifies data $x$,
+                    $$f(x) = mode({ f_i (x)} _{i = 1}^{n} ).$$
+                    </p>
+                    <p>Also, for regression, the voting regressor takes the average over all predictors which is
+                    $$f(x) = \frac{1}{n}\sum_{i = 1}^{n} f_i(x).$$</p>
+                    
+                    <p>I will illustrate the voting method using a generated data.</p>
+                    
+                    <figure>
+                        <img src="../../assets/images/voting-method/data.png" alt="data image"/> 
+                        <!-- <figcaption>Generated data</figcaption> -->
+                    </figure>
+                    
+                    <p>Let&rsquo;s divide them into a train set and a test set.</p>
+                    
+                    <figure>
+                        <img src="../../assets/images/voting-method/train_test.png" alt="data image"/> 
+                    </figure>
+                    
+                    
+                    <p>For base classifiers, I have a Logistic Regression classifier, a Decision Tree classifier, a SVM classifier, a K-Nearest Neighbors classifier, and a andom Forest classifier. Thier decision boundaries including the hard voting classifier&rsquo;s on the train set with cross validation are shown below:</p>
+                    
+                    <figure>
+                        <img src="../../assets/images/voting-method/all_decision_bnd.png" alt="data image"/> 
+                    </figure>
+                    
+                    
+                    <p>Comparing the decision boundaries of hard voting and soft voting:</p>
+                    
+                    <figure>
+                        <img src="../../assets/images/voting-method/voting_decision_bnd.png" alt="data image"/> 
+                    </figure>
+                    
+                    
+                    <p>The average accuracy and standard diviations for each classifier is:<br />
+                    Accuracy: 0.8999, std: 0.0149 [Logistic Regression]<br />
+                    Accuracy: 0.8689, std: 0.0086 [Decision Tree]<br />
+                    Accuracy: 0.9088, std: 0.0224 [SVC]<br />
+                    Accuracy: 0.8955, std: 0.0179 [k-NN]<br />
+                    Accuracy: 0.8821, std: 0.0143 [Random Forest]<br />
+                    Accuracy: 0.9000, std: 0.0060 [Hard voting]<br />
+                    Accuracy: 0.9022, std: 0.0126 [Soft voting]
+                    </p>
+                    
+                    <p>It seems the support vector classifier outperforms both voting classifiers on the train set. Let's check on the test set.</p>
+                    
+                    <p>Accuracy of Logistic Regression: 0.8867<br />
+                    Accuracy of Decision Tree: 0.8733<br />
+                    Accuracy of SVC: 0.8733<br />
+                    Accuracy of k-NN: 0.8733<br />
+                    Accuracy of Random Forest: 0.8867<br />
+                    Accuracy of Hard voting: 0.8933<br />
+                    Accuracy of Soft voting: 0.8933</p>
+                    
+                    <p>As we can see, the support vector classifier is badly overfitting and the soft voting classifier outperforms all as expected.</p>
+                    
+                    <h3 id="why-does-voting-method-work">Why does voting method work?</h3>
+                    
+                    <p>This is roughly because of the law of large numbers. Suppose we have 1000 base classifiers that are individually correct only 51% of the time. If we represent this with a random variable, for each classifier $f_i$, we have $X_i = 1$ with 51% and $X_i = 0$ with 49%, where 1 indicates that this classifier is correct. Assuming that each classifier is independent, the probability of getting majority of right classifiers is that</p>
+                    
+                    <p>$$P( \sum_{i=1}^{1000} X_i \geq 501 ) = 1 - P( \sum _{i=1}^{1000} X_i \leq 500 ) = 0.7261 $$</p>
+                    
+                    <p>The probability of getting majority of right classifiers will increase as we take more number of base classifiers. However, this is only true when all classifiers are independent and this is clearly not the case since they are all trained on the same data. To make this reasoning work better, we should make them more independent. One way to do it when we train them on the same data is to use a very different algorithm for each classifier. This will increase the chance that they will make different types of errors which lead to the improvement of the ensemble&rsquo;s accurary.</p>
+                    
+                    <p>Another way to make them more independent is to use different data for each classifier which I will cover in the next post.</p>
+                    
+                    <h4 id="code">Code</h4>
+                    
+                    <p>In order to try out the code, use my notebook <a href="../../assets/jupyter_notes/ensemble_method/voting_method.ipynb" target="_blank" rel="noopener noreferrer">ipython notebook</a>.</p>
+                </div>
+            </div>
+        </div>
+    </article>
+    <!-- Footer-->
+    <footer class="border-top">
+
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="../../js/scripts.js"></script>
+</body>
+
+</html>
